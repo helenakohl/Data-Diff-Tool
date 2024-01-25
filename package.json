@@ -2,7 +2,10 @@
   "name": "@2024-kohl-data-diff-exploration/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "lint": "npx nx run-many --target lint",
+    "serve": "npx nx run-many --target serve"
+  },
   "private": true,
   "devDependencies": {
     "@jvalue/eslint-config-jvalue": "^1.3.0",
