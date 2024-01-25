@@ -1,5 +1,6 @@
 {
   "root": true,
+  "extends": ["@jvalue/eslint-config-jvalue"],
   "ignorePatterns": ["**/*"],
   "plugins": ["@nx"],
   "overrides": [
