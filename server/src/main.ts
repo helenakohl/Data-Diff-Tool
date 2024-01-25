@@ -5,7 +5,7 @@
 
 import * as path from 'path';
 
-import express from 'express';
+import express = require('express');
 
 const app = express();
 
@@ -15,7 +15,7 @@ app.get('/api', (req, res) => {
   res.send({ message: 'Welcome to server!' });
 });
 
-const port = process.env.PORT || 3333;
+const port = process.env.PORT ?? 3333;
 const server = app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}/api`);
 });
