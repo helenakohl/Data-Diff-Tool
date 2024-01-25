@@ -1,0 +1,61 @@
+{
+  "name": "ui",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "ui/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/vite:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/ui"
+      },
+      "configurations": {
+        "development": {
+          "mode": "development"
+        },
+        "production": {
+          "mode": "production"
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/vite:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "ui:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "ui:build:development",
+          "hmr": true
+        },
+        "production": {
+          "buildTarget": "ui:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "preview": {
+      "executor": "@nx/vite:preview-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "ui:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "ui:build:development"
+        },
+        "production": {
+          "buildTarget": "ui:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    }
+  },
+  "tags": []
+}
