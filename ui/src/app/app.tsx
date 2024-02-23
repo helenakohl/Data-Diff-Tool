@@ -1,20 +1,27 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import styles from './app.module.scss';
 
-import NxWelcome from './nx-welcome';
-
 import { Route, Routes, Link } from 'react-router-dom';
+import { useState } from 'react';
+
+import TableData from './components/DataTable';
+import TableForm from './components/Form';
+//import ColumnComparisonTable from './components/unused/ColumnComparisonTable';
+//import RowComparisonTable from './components/Comparison';
+import Comparison from './components/Comparison';
+
+import { SelectedValues } from './Interfaces';
 
 export function App() {
+
+  const [selectedValues, setSelectedValues] = useState<SelectedValues>({ value1: 1, value2: 1 });
+
+  const handleFormSubmit = (values: SelectedValues) => {
+    setSelectedValues(values);
+  };
+
   return (
     <div>
-      <NxWelcome title="ui" />
-
-      {/* START: routes */}
-      {/* These routes and navigation have been generated for you */}
-      {/* Feel free to move and update them to fit your needs */}
-      <br />
-      <hr />
       <br />
       <div role="navigation">
         <ul>
@@ -22,25 +29,73 @@ export function App() {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/page-2">Page 2</Link>
+            <Link to="/data1">Table 1</Link>
+          </li>
+          <li>
+            <Link to="/data2">Table 2</Link>
+          </li>
+          <li>
+            <Link to="/data3">Table 3</Link>
+          </li>
+          <li>
+            <Link to="/data4">Table 4</Link>
           </li>
         </ul>
       </div>
+      <TableForm onSubmit = {handleFormSubmit}/>
       <Routes>
         <Route
           path="/"
           element={
             <div>
-              This is the generated root route.{' '}
-              <Link to="/page-2">Click here for page 2.</Link>
             </div>
           }
         />
         <Route
-          path="/page-2"
+          path="/data1"
           element={
             <div>
-              <Link to="/">Click here to go back to root page.</Link>
+              <TableData tableNumber={1}/>
+            </div>
+          }
+        />
+        <Route
+          path="/data2"
+          element={
+            <div>
+              <TableData tableNumber={2}/>
+            </div>
+          }
+        />
+        <Route
+          path="/data3"
+          element={
+            <div>
+              <TableData tableNumber={3}/>
+            </div>
+          }
+        />
+        <Route
+          path="/data4"
+          element={
+            <div>
+              <TableData tableNumber={4}/>
+            </div>
+          }
+        />
+        <Route
+          path="/compare"
+          element={
+            <div>
+              <Comparison value1={selectedValues.value1} value2={selectedValues.value2}/>
+            </div>
+          }
+        />
+        <Route
+          path="/test"
+          element={
+            <div>
+              <Comparison value1={4} value2={1}/>
             </div>
           }
         />

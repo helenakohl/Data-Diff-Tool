@@ -1,1 +1,63 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+  
+th {
+    color: black;
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+  
+td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+  
+form {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    margin: 0;
+    padding: 5%;
+
+}
+
+  
+[role = navigation] {
+    text-align: center; /* Center align the navigation items */
+    margin-top: 20px; /* Match the form's top margin */
+}
+
+
+[role = navigation] ul {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+    display: inline-block; /* Align items horizontally */
+}
+
+[role = navigation] li {
+    display: inline; /* Display list items inline */
+    margin-right: 20px; /* Space between items */
+}
+
+[role = navigation] li:last-child {
+    margin-right: 0; /* Remove margin for the last item */
+}
+
+[role = navigation] a {
+    text-decoration: none; /* Remove underline from links */
+    color: black; /* Link color matching the form's submit button */
+    font-weight: bold; /* Make the text bold */
+}
+
+[role = navigation] a:hover {
+    color: grey; /* Darker shade of blue on hover */
+}
