@@ -8,7 +8,7 @@ import * as path from 'path';
 import cors from 'cors';
 import express = require('express');
 
-import { getTableData } from './dataBaseService';
+import { getTableColumnInfo, getTableData } from './dataBaseService';
 
 const app = express();
 // eslint-disable-next-line @typescript-eslint/no-unsafe-call
@@ -51,6 +51,42 @@ app.get('/data4', (req, res) => {
   try {
     const data = getTableData('trainstops4.sqlite', 'trainstops');
     res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch data' });
+  }
+});
+
+app.get('/columnsinfo1', (req, res) => {
+  try {
+    const columnsinfo = getTableColumnInfo('trainstops1.sqlite', 'trainstops');
+    res.json(columnsinfo);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch data' });
+  }
+});
+
+app.get('/columnsinfo2', (req, res) => {
+  try {
+    const columnsinfo = getTableColumnInfo('trainstops2.sqlite', 'trainstops');
+    res.json(columnsinfo);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch data' });
+  }
+});
+
+app.get('/columnsinfo3', (req, res) => {
+  try {
+    const columnsinfo = getTableColumnInfo('trainstops3.sqlite', 'trainstops');
+    res.json(columnsinfo);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch data' });
+  }
+});
+
+app.get('/columnsinfo4', (req, res) => {
+  try {
+    const columnsinfo = getTableColumnInfo('trainstops4.sqlite', 'trainstops');
+    res.json(columnsinfo);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch data' });
   }
