@@ -19,6 +19,10 @@ export interface RowComparisonResult {
     commonColumns: string[]
 }
 
+export interface TypeComparisonResult {
+    changedTypes: string[];
+}
+
 export interface TableInfo {
     tableNumber1: number;
     tableNumber2: number;
@@ -26,7 +30,21 @@ export interface TableInfo {
     addedRows: DataItem[];
     missingColumns: string[];
     addedColumns: string[];
-    commonColumns: string[]
+    commonColumns: string[];
+    changedTypes: string[]
+}
+
+export interface TableInfo2 {
+    tableNumber1: number;
+    tableNumber2: number;
+    data1: DataItem[];
+    data2: DataItem[];
+    missingRows: DataItem[];
+    addedRows: DataItem[];
+    missingColumns: string[];
+    addedColumns: string[];
+    commonColumns: string[];
+    changedTypes: string[]
 }
 
 export interface FormValues {

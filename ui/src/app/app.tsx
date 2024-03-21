@@ -6,8 +6,6 @@ import { useState } from 'react';
 
 import TableData from './components/DataTable';
 import TableForm from './components/Form';
-//import ColumnComparisonTable from './components/unused/ColumnComparisonTable';
-//import RowComparisonTable from './components/Comparison';
 import Comparison from './components/Comparison';
 
 import { SelectedValues } from './Interfaces';
@@ -95,7 +93,6 @@ export function App() {
           path="/test"
           element={
             <div>
-              <Comparison value1={4} value2={1}/>
             </div>
           }
         />

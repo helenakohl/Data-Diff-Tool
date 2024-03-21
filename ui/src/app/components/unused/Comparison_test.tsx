@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { RowComparisonResult, ColComparisonResult, SelectedValues, DataItem } from '../Interfaces';
-import MergedDataTable from './MergedDataTable';
+import { RowComparisonResult, ColComparisonResult, SelectedValues, DataItem } from '../../Interfaces';
+import MergedDataTable2 from './MergedDataTable_test';
 
 //For column comparison
 const getColumnNames = (data: DataItem[]): string[] => {
@@ -36,7 +36,7 @@ function generateKey(row: DataItem, commonColumns: string[]): string {
   return commonColumns.map(column => row[column]).join('|');
 }
 
-function compareRows(table1: never[], table2: never[], commonColumns: string[]): RowComparisonResult {
+function compareRows(table1: DataItem[], table2: DataItem[], commonColumns: string[]): RowComparisonResult {
   const secondaryKeys1 = new Set(table1.map(row => generateKey(row, commonColumns)));
   const secondaryKeys2 = new Set(table2.map(row => generateKey(row, commonColumns)));
   const RowsMissingInTable2 = table1.filter(row => !secondaryKeys2.has(generateKey(row, commonColumns)));
@@ -65,7 +65,9 @@ function compareTypes(columnsInfo1: { name: string; type: string }[], columnsInf
   return changedTypes;
 }
 
-const Comparison: React.FC<SelectedValues> = ({ value1, value2 }) => {
+const Comparison2: React.FC<SelectedValues> = ({ value1, value2 }) => {
+    const [data1, setData1] = useState<DataItem[]>([]);
+    const [data2, setData2] = useState<DataItem[]>([]);
     const [colComparisonResult, setColComparisonResult] = useState<ColComparisonResult>({
       ColsAddedInTable2: [],
       ColsMissingInTable2: [],
@@ -76,25 +78,30 @@ const Comparison: React.FC<SelectedValues> = ({ value1, value2 }) => {
       RowsMissingInTable2: [],
       commonColumns: []
     });
+    const [typeComparisonResult, setTypeComparisonResult] = useState<string[]>([]);
     const [columnsInfo1, setColumnsInfo1] = useState<{ name: string; type: string }[]>([]);
     const [columnsInfo2, setColumnsInfo2] = useState<{ name: string; type: string }[]>([]);
-    const [typeComparisonResult, setTypeComparisonResult] = useState<string[]>([]);
+    const [isLoading, setIsLoading] = useState(true); // loading state
 
     useEffect(() => {
+        setIsLoading(true); // Start loading
         Promise.all([
         fetch(`http://localhost:3333/data${value1}`).then(res => res.json()),
         fetch(`http://localhost:3333/data${value2}`).then(res => res.json()),
         ]).then(([data1, data2]) => {
-
           // Column comparison
+          setData1(data1);
+          setData2(data2);
+
           const columnsTable1 = getColumnNames(data1);
           const columnsTable2 = getColumnNames(data2);
           const colResult = compareColumns(columnsTable1, columnsTable2);
-          setColComparisonResult(colResult);
 
+          setColComparisonResult(colResult);
           // Row comparison
           const keys = findCommonColumns(data1, data2);
           const rowResult = compareRows(data1, data2, keys);
+
           setRowComparisonResult(rowResult);
         }).catch(error => console.error('Failed to fetch data:', error));
 
@@ -115,14 +122,21 @@ const Comparison: React.FC<SelectedValues> = ({ value1, value2 }) => {
 
         const typeResult = compareTypes(columnsInfo1, columnsInfo2);
         setTypeComparisonResult(typeResult);
+        console.log('Changed data types: ', typeComparisonResult);
         
-  }, [ value1, value2, columnsInfo1, columnsInfo2 ]);
+        setIsLoading(false);
+    }, [ value1, value2, columnsInfo1, columnsInfo2, typeComparisonResult ]);
 
+    if (isLoading) {
+      return <div>Comparing...</div>;
+    }
     return (
       <div>
-        <MergedDataTable
+        <MergedDataTable2
         tableNumber1 = {value1} 
         tableNumber2={value2} 
+        data1={data1}
+        data2={data2}
         addedColumns={colComparisonResult.ColsAddedInTable2}
         missingColumns={colComparisonResult.ColsMissingInTable2}
         missingRows={rowComparisonResult.RowsMissingInTable2} 
@@ -132,4 +146,4 @@ const Comparison: React.FC<SelectedValues> = ({ value1, value2 }) => {
       </div>
     );
 };
-export default Comparison;
+export default Comparison2;

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { DataItem, TableInfo } from '../Interfaces';
+// import React, { useState } from 'react';
+import { DataItem, TableInfo2 } from '../../Interfaces';
 
 const generateKey = (row: DataItem, keys: string[]) => 
-  keys.map(column => row[column]).join('|');
+keys.map(column => row[column]).join('|');
 
 const mergeData = (data1: DataItem[], data2: DataItem[], commonColumns: string[]) => {
   const processedKeys = new Set();
@@ -18,7 +18,7 @@ const mergeData = (data1: DataItem[], data2: DataItem[], commonColumns: string[]
 
     const newRow: DataItem = {};
     allColumns.forEach(column => {
-      // Prefer data from data2; fallback to data1; use "N/A" if absent in both.
+      // Prefer data from data2; use data1; use "N/A" if in none
       if (row2.hasOwnProperty.call(row2,column)) {
         newRow[column] = row2[column];
       } else if (row1 && row1.hasOwnProperty.call(row1, column)) {
@@ -48,31 +48,8 @@ const mergeData = (data1: DataItem[], data2: DataItem[], commonColumns: string[]
   return mergedData;
 };
 
-const MergedDataTable: React.FC<TableInfo> = ({ tableNumber1, tableNumber2, missingColumns, addedColumns, missingRows, addedRows, commonColumns, changedTypes }) => {
-  const [data1, setData1] = useState<DataItem[]>([]);
-  const [data2, setData2] = useState<DataItem[]>([]);
-  const [isLoading, setIsLoading] = useState(true); // Add a loading state
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true); // Start loading
-      try {
-        const response1 = await fetch(`http://localhost:3333/data${tableNumber1}`);
-        const jsonData1: DataItem[] = await response1.json();
-        setData1(jsonData1);
-
-        const response2 = await fetch(`http://localhost:3333/data${tableNumber2}`);
-        const jsonData2: DataItem[] = await response2.json();
-        setData2(jsonData2);
-      } catch (error) {
-        console.error('Failed to fetch data:', error);
-      } finally {
-        setIsLoading(false); 
-      }
-    };
-
-    fetchData();
-  }, [tableNumber1, tableNumber2]);
+const MergedDataTable2: React.FC<TableInfo2> = ({ tableNumber1, tableNumber2, data1, data2, missingColumns, addedColumns, missingRows, addedRows, commonColumns, changedTypes }) => {
+  // const [isLoading, setIsLoading] = useState(true); // Add a loading state
 
   const mergedData = mergeData(data1, data2, commonColumns);
   
@@ -85,11 +62,10 @@ const MergedDataTable: React.FC<TableInfo> = ({ tableNumber1, tableNumber2, miss
       </th>
     ));
   };
-  
-    // set style for changed columns and data taypes
-    const getColumnStyle = (columnName: string) => ({
-      backgroundColor: addedColumns.includes(columnName) ? 'lightgreen' : changedTypes.includes(columnName) ? 'yellow' : missingColumns.includes(columnName) ? 'salmon' : 'none',
-    });
+  // set style for chnaged columns and data types
+  const getColumnStyle = (columnName: string) => ({
+    backgroundColor: addedColumns.includes(columnName) ? 'lightgreen' : changedTypes.includes(columnName) ? 'yellow' : missingColumns.includes(columnName) ? 'salmon' : 'none',
+  });
 
   // Determine if a row is added or removed
   const isRowAdded = (row: DataItem) => {
@@ -101,10 +77,6 @@ const MergedDataTable: React.FC<TableInfo> = ({ tableNumber1, tableNumber2, miss
     return missingRows.some(missingRows => generateKey(missingRows, commonColumns) === rowKey);
   };
 
-
-  if (isLoading) {
-    return <div>Comparing...</div>;
-  }
 
   return (
     <div className="tables-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -127,4 +99,4 @@ const MergedDataTable: React.FC<TableInfo> = ({ tableNumber1, tableNumber2, miss
     </div>
   );
 };
-export default MergedDataTable;
+export default MergedDataTable2;
