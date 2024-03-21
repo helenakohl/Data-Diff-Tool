@@ -7,15 +7,21 @@ const TableForm: React.FC<FormComponentValues> = ({ onSubmit }) => {
   const [value2, setValue2] = useState<number>(1);
   const navigate = useNavigate(); 
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleCompare = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSubmit({ value1, value2 });
     navigate('compare');
   };
 
+  const handleQuickCompare = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault(); 
+    onSubmit({ value1, value2 }); 
+    navigate('/quickcompare'); 
+  };
+
   return (
     <div style={{ display: 'flex', justifyContent: 'center', marginTop: '40px', marginBottom: '40px'}}>
-      <form onSubmit={handleSubmit} style={{
+      <form onSubmit={handleCompare} style={{
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
@@ -52,6 +58,17 @@ const TableForm: React.FC<FormComponentValues> = ({ onSubmit }) => {
             fontWeight: 'bold',
             textTransform: 'uppercase',
           }}/> 
+          <button onClick={handleQuickCompare} style={{
+            cursor: 'pointer',
+            padding: '10px 20px',
+            border: 'none',
+            borderRadius: '5px',
+            background: 'grey',
+            color: 'white',
+            fontSize: '16px',
+            fontWeight: 'bold',
+            textTransform: 'uppercase',
+        }}>Quick Compare</button>
       </form>
     </div>
   );

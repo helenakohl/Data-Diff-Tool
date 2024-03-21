@@ -7,6 +7,7 @@ import { useState } from 'react';
 import TableData from './components/DataTable';
 import TableForm from './components/Form';
 import Comparison from './components/Comparison';
+import ComparisonText from './components/ComparisonText';
 
 import { SelectedValues } from './Interfaces';
 
@@ -40,7 +41,7 @@ export function App() {
           </li>
         </ul>
       </div>
-      <TableForm onSubmit = {handleFormSubmit}/>
+      <TableForm onSubmit = {handleFormSubmit} />
       <Routes>
         <Route
           path="/"
@@ -90,9 +91,10 @@ export function App() {
           }
         />
         <Route
-          path="/test"
+          path="/quickcompare"
           element={
             <div>
+              <ComparisonText value1={selectedValues.value1} value2={selectedValues.value2}/>
             </div>
           }
         />
