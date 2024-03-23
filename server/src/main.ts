@@ -22,7 +22,7 @@ app.get('/api', (req, res) => {
 
 app.get('/data1', (req, res) => {
   try {
-    const data = getTableData('trainstops1.sqlite', 'trainstops');
+    const data = getTableData('songs1.sqlite', 'songs');
     res.json(data);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch data' });
@@ -31,7 +31,7 @@ app.get('/data1', (req, res) => {
 
 app.get('/data2', (req, res) => {
   try {
-    const data = getTableData('trainstops2.sqlite', 'trainstops');
+    const data = getTableData('songs2.sqlite', 'songs');
     res.json(data);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch data' });
@@ -40,7 +40,7 @@ app.get('/data2', (req, res) => {
 
 app.get('/data3', (req, res) => {
   try {
-    const data = getTableData('trainstops3.sqlite', 'trainstops');
+    const data = getTableData('songs3.sqlite', 'songs');
     res.json(data);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch data' });
@@ -49,7 +49,16 @@ app.get('/data3', (req, res) => {
 
 app.get('/data4', (req, res) => {
   try {
-    const data = getTableData('trainstops4.sqlite', 'trainstops');
+    const data = getTableData('songs4.sqlite', 'songs');
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch data' });
+  }
+});
+
+app.get('/data5', (req, res) => {
+  try {
+    const data = getTableData('songs5.sqlite', 'songs');
     res.json(data);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch data' });
@@ -58,7 +67,7 @@ app.get('/data4', (req, res) => {
 
 app.get('/columnsinfo1', (req, res) => {
   try {
-    const columnsinfo = getTableColumnInfo('trainstops1.sqlite', 'trainstops');
+    const columnsinfo = getTableColumnInfo('songs1.sqlite', 'songs');
     res.json(columnsinfo);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch data' });
@@ -67,7 +76,7 @@ app.get('/columnsinfo1', (req, res) => {
 
 app.get('/columnsinfo2', (req, res) => {
   try {
-    const columnsinfo = getTableColumnInfo('trainstops2.sqlite', 'trainstops');
+    const columnsinfo = getTableColumnInfo('songs2.sqlite', 'songs');
     res.json(columnsinfo);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch data' });
@@ -76,7 +85,7 @@ app.get('/columnsinfo2', (req, res) => {
 
 app.get('/columnsinfo3', (req, res) => {
   try {
-    const columnsinfo = getTableColumnInfo('trainstops3.sqlite', 'trainstops');
+    const columnsinfo = getTableColumnInfo('songs3.sqlite', 'songs');
     res.json(columnsinfo);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch data' });
@@ -85,7 +94,16 @@ app.get('/columnsinfo3', (req, res) => {
 
 app.get('/columnsinfo4', (req, res) => {
   try {
-    const columnsinfo = getTableColumnInfo('trainstops4.sqlite', 'trainstops');
+    const columnsinfo = getTableColumnInfo('songs4.sqlite', 'songs');
+    res.json(columnsinfo);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch data' });
+  }
+});
+
+app.get('/columnsinfo5', (req, res) => {
+  try {
+    const columnsinfo = getTableColumnInfo('songs5.sqlite', 'songs');
     res.json(columnsinfo);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch data' });

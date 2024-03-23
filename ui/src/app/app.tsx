@@ -39,6 +39,9 @@ export function App() {
           <li>
             <Link to="/data4">Table 4</Link>
           </li>
+          <li>
+            <Link to="/data5">Table 5</Link>
+          </li>
         </ul>
       </div>
       <TableForm onSubmit = {handleFormSubmit} />
@@ -79,6 +82,14 @@ export function App() {
           element={
             <div>
               <TableData tableNumber={4}/>
+            </div>
+          }
+        />
+        <Route
+          path="/data5"
+          element={
+            <div>
+              <TableData tableNumber={5}/>
             </div>
           }
         />

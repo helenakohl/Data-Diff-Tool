@@ -37,6 +37,7 @@ const TableForm: React.FC<FormComponentValues> = ({ onSubmit }) => {
               <option value="2">Table 2</option>
               <option value="3">Table 3</option>
               <option value="4">Table 4</option>
+              <option value="5">Table 5</option>
           </select>
           <br/>
           <label>Table 2: </label>
@@ -45,6 +46,7 @@ const TableForm: React.FC<FormComponentValues> = ({ onSubmit }) => {
               <option value="2">Table 2</option>
               <option value="3">Table 3</option>
               <option value="4">Table 4</option>
+              <option value="5">Table 5</option>
           </select>
           <br/>
           <input type="submit" value="Compare" style={{
