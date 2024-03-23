@@ -53,4 +53,4 @@ server/pipelines/song_pipeline4.jv
 server/pipelines/song_pipeline5.jv
 server/pipelines/spotify_top_songs_audio_features.csv
 
-ui/src/components/unused
+ui/src/app/components/unused
