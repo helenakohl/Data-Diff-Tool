@@ -75,66 +75,61 @@ const ComparisonText: React.FC<SelectedValues> = ({ value1, value2 }) => {
       RowsMissingInTable2: [],
       commonColumns: []
     });
-    const [columnsInfo1, setColumnsInfo1] = useState<{ name: string; type: string }[]>([]);
-    const [columnsInfo2, setColumnsInfo2] = useState<{ name: string; type: string }[]>([]);
     const [typeComparisonResult, setTypeComparisonResult] = useState<string[]>([]);
-    const [isLoading, setIsLoading] = useState(true); // Add a loading state
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
       setIsLoading(true); // Start loading
-        Promise.all([
+      Promise.all([
         fetch(`http://localhost:3333/data${value1}`).then(res => res.json()),
         fetch(`http://localhost:3333/data${value2}`).then(res => res.json()),
-        ]).then(([data1, data2]) => {
+        fetch(`http://localhost:3333/columnsinfo${value1}`).then(res => res.json()),
+        fetch(`http://localhost:3333/columnsinfo${value2}`).then(res => res.json())
+      ]).then(([data1, data2, columnsInfo1, columnsInfo2]) => {
 
-          // Column comparison
-          const columnsTable1 = getColumnNames(data1);
-          const columnsTable2 = getColumnNames(data2);
-          const colResult = compareColumns(columnsTable1, columnsTable2);
-          setColComparisonResult(colResult);
+        // Column comparison
+        const columnsTable1 = getColumnNames(data1);
+        const columnsTable2 = getColumnNames(data2);
+        const colResult = compareColumns(columnsTable1, columnsTable2);
+        setColComparisonResult(colResult);
 
-          // Row comparison
-          const keys = findCommonColumns(data1, data2);
-          const rowResult = compareRows(data1, data2, keys);
-          setRowComparisonResult(rowResult);
-        }).catch(error => console.error('Failed to fetch data:', error));
+        // Row comparison
+        const keys = findCommonColumns(data1, data2);
+        const rowResult = compareRows(data1, data2, keys);
+        setRowComparisonResult(rowResult);
 
         // Type comparison
-        fetch(`http://localhost:3333/columnsinfo${value1}`)
-        .then(response => response.json())
-        .then((jsonInfo: { name: string; type: string }[]) => {
-          setColumnsInfo1(jsonInfo); 
-        })
-        .catch(error => console.error('Failed to fetch column info:', error));
-
-        fetch(`http://localhost:3333/columnsinfo${value2}`)
-        .then(response => response.json())
-        .then((jsonInfo: { name: string; type: string }[]) => {
-          setColumnsInfo2(jsonInfo); 
-        })
-        .catch(error => console.error('Failed to fetch column info:', error));
-
         const typeResult = compareTypes(columnsInfo1, columnsInfo2);
         setTypeComparisonResult(typeResult);
 
+        // End loading
         setIsLoading(false);
-        
-  }, [ value1, value2, columnsInfo1, columnsInfo2 ]);
+        }).catch(error => {
+          console.error('Failed to fetch data:', error);
+          setIsLoading(false);
+        });
+  }, [value1, value2]);
 
   if (isLoading) {
-    return <div>Comparing...</div>;
+  return <div>Comparing...</div>;
   }
 
   return (
-    <div>
-      <h3>Changes in Columns: </h3>
-      <p>Added columns: {colComparisonResult.ColsAddedInTable2.join(', ')}</p>
-      <p>Removed columns: {colComparisonResult.ColsMissingInTable2.join(', ')}</p>
-      <p>Data type changed: {typeComparisonResult.join(', ')}</p> 
-      <h3>Changes in Rows: </h3> 
-      <p>Number of added rows: {rowComparisonResult.RowsAddedInTable2.length}</p>
-      <p>Number of removed rows: {rowComparisonResult.RowsMissingInTable2.length}</p>
+    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '40px', marginBottom: '40px' }}>
+      <div style={{
+        padding: '20px',
+        border: '1px solid #ccc',
+        borderRadius: '8px',
+        boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+      }}>
+        <h3>Changes in Columns: </h3>
+        <p><b>Added columns: </b>{colComparisonResult.ColsAddedInTable2.join(', ')}</p>
+        <p><b>Removed columns: </b>{colComparisonResult.ColsMissingInTable2.join(', ')}</p>
+        <p><b></b>Data type changed: {typeComparisonResult.join(', ')}</p>
+        <h3>Changes in Rows: </h3>
+        <p><b>Number of added rows: </b>{rowComparisonResult.RowsAddedInTable2.length}</p>
+        <p><b>Number of removed rows: </b>{rowComparisonResult.RowsMissingInTable2.length}</p>
+      </div>
     </div>
-  );
-};
+)};
 export default ComparisonText;

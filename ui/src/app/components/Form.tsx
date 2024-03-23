@@ -60,7 +60,7 @@ const TableForm: React.FC<FormComponentValues> = ({ onSubmit }) => {
             fontWeight: 'bold',
             textTransform: 'uppercase',
           }}/> 
-          <button onClick={handleQuickCompare} style={{
+          <button type = "submit" onClick={handleQuickCompare} style={{
             cursor: 'pointer',
             padding: '10px 20px',
             border: 'none',
