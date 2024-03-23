@@ -1,5 +1,19 @@
 // import React, { useState } from 'react';
-import { DataItem, TableInfo2 } from '../../Interfaces';
+import { DataItem } from '../../Interfaces';
+
+interface TableInfo2 {
+  tableNumber1: number;
+  tableNumber2: number;
+  data1: DataItem[];
+  data2: DataItem[];
+  missingRows: DataItem[];
+  addedRows: DataItem[];
+  missingColumns: string[];
+  addedColumns: string[];
+  commonColumns: string[];
+  changedTypes: string[]
+}
+
 
 const generateKey = (row: DataItem, keys: string[]) => 
 keys.map(column => row[column]).join('|');
