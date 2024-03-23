@@ -34,19 +34,6 @@ export interface TableInfo {
     changedTypes: string[]
 }
 
-export interface TableInfo2 {
-    tableNumber1: number;
-    tableNumber2: number;
-    data1: DataItem[];
-    data2: DataItem[];
-    missingRows: DataItem[];
-    addedRows: DataItem[];
-    missingColumns: string[];
-    addedColumns: string[];
-    commonColumns: string[];
-    changedTypes: string[]
-}
-
 export interface FormValues {
     value1: number;
     value2: number;

@@ -128,9 +128,9 @@ const ComparisonText: React.FC<SelectedValues> = ({ value1, value2 }) => {
   return (
     <div>
       <h3>Changes in Columns: </h3>
-      <p>added: {colComparisonResult.ColsAddedInTable2}</p>
-      <p>removed: {colComparisonResult.ColsMissingInTable2}</p>
-      <p>Data type changed: {typeComparisonResult}</p>
+      <p>Added columns: {colComparisonResult.ColsAddedInTable2.join(', ')}</p>
+      <p>Removed columns: {colComparisonResult.ColsMissingInTable2.join(', ')}</p>
+      <p>Data type changed: {typeComparisonResult.join(', ')}</p> 
       <h3>Changes in Rows: </h3> 
       <p>Number of added rows: {rowComparisonResult.RowsAddedInTable2.length}</p>
       <p>Number of removed rows: {rowComparisonResult.RowsMissingInTable2.length}</p>
