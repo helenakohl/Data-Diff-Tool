@@ -107,7 +107,7 @@ const MergedDataTable: React.FC<TableInfo> = ({ tableNumber1, tableNumber2, miss
   }
 
   return (
-    <div className="tables-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <div className="tables-container" style={{ overflowX: 'auto', width: '100%' }}>
       <table>
         {generateHeaders(mergedData)}
         <tbody>

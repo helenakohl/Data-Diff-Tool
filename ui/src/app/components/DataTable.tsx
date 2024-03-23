@@ -1,6 +1,4 @@
-
 import React, { useState, useEffect } from 'react';
-
 
 interface TableInfo {
   tableNumber: number;
