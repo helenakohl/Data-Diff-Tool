@@ -103,7 +103,7 @@ const MergedDataTable: React.FC<TableInfo> = ({ tableNumber1, tableNumber2, miss
 
 
   if (isLoading) {
-    return <div>Comparing...</div>;
+    return <div style={{ display: 'flex', justifyContent: 'center', marginTop: '40px'}}>Comparing...</div>;
   }
 
   return (
